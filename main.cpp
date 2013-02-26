@@ -184,6 +184,10 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
 
 //convert frame to yuv420 and send to encoder
             for(int i = 0; i <numCams; ++i){
+            	printf("1");
+            	dc1394_bayer_decoding_8bit( frames[i]->image, rgbbuf, 640, 480,
+            	            DC1394_COLOR_FILTER_BGGR, DC1394_BAYER_METHOD_NEAREST );
+            	printf("2");
                 frame_to_rgb(buffer_in,&buffer_in_size,frames[i]); //actually uses gray2yuv420sp
                 err = video[i].encode(buffer_in, buffer_in_size); //send to encoder
                 if( err!=0 ){
