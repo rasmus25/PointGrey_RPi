@@ -63,8 +63,8 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
      //initialise cameras to mode DC1394_VIDEO_MODE_640x480_MONO8
     PointGreyCam cameras;
     int numCams = cameras.Init();
-    //cameras.SetupCamera(DC1394_VIDEO_MODE_640x480_MONO8,DC1394_TRIGGER_MODE_3,DC1394_TRIGGER_SOURCE_SOFTWARE,DC1394_FRAMERATE_30); //streaming example
-    cameras.SetupCamera(DC1394_VIDEO_MODE_640x480_MONO8,DC1394_TRIGGER_MODE_0,DC1394_TRIGGER_SOURCE_SOFTWARE); //polling example
+    cameras.SetupCamera(DC1394_VIDEO_MODE_640x480_MONO8,DC1394_TRIGGER_MODE_3,DC1394_TRIGGER_SOURCE_SOFTWARE,DC1394_FRAMERATE_30); //streaming example
+//    cameras.SetupCamera(DC1394_VIDEO_MODE_640x480_MONO8,DC1394_TRIGGER_MODE_0,DC1394_TRIGGER_SOURCE_SOFTWARE); //polling example
     cameras.SetCameraSettings(SetStruct );  //set settings only shutter at the moment
     cameras.PrintCameraSettings();          //print camera settings to screen
     dc1394video_frame_t **frames = 0;       //framer buffers

@@ -106,7 +106,13 @@ int PointGreyCam::SetupCamera( dc1394video_mode_t video_mode,dc1394trigger_mode_
 
 
     for(int i = 0; i < NumCameras; ++i){
-        err=dc1394_video_set_mode(camera[i], video_mode);
+//        err=dc1394_video_set_mode(camera[i], video_mode);
+    	dc1394_video_set_mode(camera, DC1394_VIDEO_MODE_FORMAT7_0);
+		err = dc1394_format7_set_roi(camera[i], DC1394_VIDEO_MODE_FORMAT7_0,
+									 DC1394_COLOR_CODING_RAW8,
+									 DC1394_USE_MAX_AVAIL, // use max packet size
+									 0, 0, // left, top
+									 640, 480);  // width, height
         DC1394_ERR_CLN_RTN(err,cleanup_and_exit(camera[i]),"Could not set video mode");
 
         //set up camera with 4 frame buffers max of chameleon I believe
