@@ -72,6 +72,7 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
     rgbbuf = (uint8_t*) malloc( 640 * 480 * 3 );
 
 
+
     struct timespec start, stop,start1,stop1;//timer things used to test performance
     int err;
 
@@ -184,8 +185,8 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
 
 //convert frame to yuv420 and send to encoder
             for(int i = 0; i <numCams; ++i){
-            	dc1394_bayer_decoding_8bit( frames[i]->image, rgbbuf, 640, 480,
-            			DC1394_COLOR_FILTER_GBRG, DC1394_BAYER_METHOD_NEAREST );
+            	dc1394_bayer_decoding_8bit( frames[i]->image, rgbbuf, 1280, 960,
+            			DC1394_COLOR_FILTER_GBRG, DC1394_BAYER_METHOD_DOWNSAMPLE );
                 err = video[i].encode(rgbbuf, 640*480*3); //send to encoder
                 if( err!=0 ){
                     printf("Error %i\n",err);
