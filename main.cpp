@@ -68,6 +68,8 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
     cameras.SetCameraSettings(SetStruct );  //set settings only shutter at the moment
     cameras.PrintCameraSettings();          //print camera settings to screen
     dc1394video_frame_t **frames = 0;       //framer buffers
+    uint8_t *rgbbuf = NULL;
+    rgbbuf = (uint8_t*) malloc( 640 * 480 * 3 );
 
 
     struct timespec start, stop,start1,stop1;//timer things used to test performance
@@ -246,6 +248,7 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
             video[i].close_shutdown(false);
     }
 
+    free( rgbbuf );
 
     return 0;
 }
