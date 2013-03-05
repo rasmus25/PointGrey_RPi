@@ -19,8 +19,8 @@
 #define GPIO_XTRA_PIN_3 0x1144
 
 
-Servo::Servo(dc1394camera_t _camera, uint8_t _gpio_pin_no,  uint16_t _position_us=1500, uint16_t _lower_limit_us=1000,
-		uint16_t _center_us=1500, uint16_t _upper_limit_us=2000)
+Servo::Servo(dc1394camera_t _camera, uint8_t _gpio_pin_no,  uint16_t _position_us, uint16_t _lower_limit_us,
+		uint16_t _center_us, uint16_t _upper_limit_us)
 {
 	camera = _camera;
 	gpio_pin_no = _gpio_pin_no;
