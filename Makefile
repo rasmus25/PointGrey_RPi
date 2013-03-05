@@ -6,7 +6,7 @@ CPPFLAGS += -I/usr/local/include -I/opt/vc/include -I/opt/vc/include/interface/v
 CPPFLAGS += -Wall -g
 CPPFLAGS += -DLINUX
 CPPFLAGS += -Wall -O3
-OBJECTS = main.o PointGreyCam.o GPU_Encode.o convert_colourspace.o
+OBJECTS = main.o PointGreyCam.o GPU_Encode.o convert_colourspace.o Servo.o
 EXECUTABLE=GPU-Encode
 all: $(SOURCES) $(EXECUTABLE)
 	
