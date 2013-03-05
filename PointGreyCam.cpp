@@ -288,6 +288,6 @@ the problem, but afterwards there was no problem.
 	{
 		if(cameraNumber >= NumCameras)
 			return false;
-		bool result = tiltServo[cameraNumber].setPosition(pwm_us);
+		bool result = tiltServo[cameraNumber]->setPosition(pwm_us);
 		return result;
 	}
