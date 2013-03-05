@@ -12,6 +12,8 @@ You are free to use this for educational/non-commercial use*/
 #include <iostream>
 #include <time.h>
 #include <unistd.h>
+#include "Servo.h"
+
 using namespace std;
 
 struct CamSettings {
@@ -38,6 +40,7 @@ private:
     int NumCameras;
     bool start_cap;
     bool software_trigger;
+    Servo ** tiltServo;
 public:
     PointGreyCam(void);
 	~PointGreyCam(void);
@@ -52,5 +55,6 @@ public:
 	int TriggerLow(void);
 	int TriggerHigh(void);
 	int SendTrigger(void);
+	bool Tilt(uint8_t cameraNumber, uint16_t pwm_us);
 };
 #endif

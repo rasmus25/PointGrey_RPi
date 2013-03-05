@@ -17,6 +17,8 @@ You are free to use this for educational/non-commercial use*/
 #define ESCAPE 27
 #define s 115
 #define S 83
+#define PLUS_KEY 43
+#define MINUS_KEY 45
 using namespace std;
 
 int read_raw_rgb(unsigned char* buf, unsigned long* filledLen, int filenumber,int stream);
@@ -28,6 +30,8 @@ int kbhit();
 
 unsigned long img_size[2] = {640*480, 640*480};
 struct termios orig_termios;
+
+int servo_pos = 1500;
 
 
 int main (int argc, char **argv){ //input file name to save to default = file_Cam*.mp4
@@ -202,6 +206,18 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
                 c = getch();
                 if( (c==s) || (c==S) || (c==ESCAPE) )
                     run = false;
+                if(c==PLUS_KEY)
+                {
+                	servo_pos++;
+                	if(!cameras.Tilt(0, servo_pos))
+                		servo_pos--;
+                }
+                if(c==MINUS_KEY)
+                {
+                	servo_pos--;
+                	if(!cameras.Tilt(0, servo_pos))
+                		servo_pos++;
+                }
             }
 
         }//while run

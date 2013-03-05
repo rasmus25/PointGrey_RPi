@@ -39,6 +39,7 @@ int PointGreyCam::Init(void){
     NumCameras = list->num;
     camera = new dc1394camera_t*[NumCameras];
     frame = new dc1394video_frame_t*[NumCameras];
+    tiltServo = new Servo*[NumCameras];
 
      //initialise camera structure
     for(int i = 0; i < NumCameras; ++i){
@@ -47,8 +48,17 @@ int PointGreyCam::Init(void){
             dc1394_log_error("Failed to initialize camera with guid %i.\n", list->ids[i].guid);
             return 1;
         }
-           printf("Using camera with GUID %llu\n", camera[i]->guid);
-           dc1394_video_set_iso_speed( camera[i], DC1394_ISO_SPEED_400 );
+	   printf("Using camera with GUID %llu\n", camera[i]->guid);
+	   dc1394_video_set_iso_speed( camera[i], DC1394_ISO_SPEED_400 );
+	   try
+	   {
+		   tiltServo[i] = new Servo(camera[i], 3);
+	   }
+	   catch(const char* msg)
+	   {
+		   printf("Could not initialize PWM output on cam[%i]", i);
+		   return 1;
+	   }
     }
 
     dc1394_camera_free_list (list);
@@ -272,4 +282,12 @@ the problem, but afterwards there was no problem.
                 DC1394_ERR_CLN_RTN(err,cleanup_and_exit(camera[i]),"Could not set trigger power low.");
         }
         return 0;
+	}
+
+	bool PointGreyCam::Tilt(uint8_t cameraNumber, uint16_t pwm_us)
+	{
+		if(cameraNumber >= NumCameras)
+			return false;
+		bool result = tiltServo[cameraNumber].setPosition(pwm_us);
+		return result;
 	}
