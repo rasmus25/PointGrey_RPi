@@ -52,7 +52,7 @@ int PointGreyCam::Init(void){
 	   dc1394_video_set_iso_speed( camera[i], DC1394_ISO_SPEED_400 );
 	   try
 	   {
-		   tiltServo[i] = new Servo(camera[i], 3);
+		   tiltServo[i] = new Servo(*(camera[i]), 3);
 	   }
 	   catch(const char* msg)
 	   {
