@@ -17,7 +17,7 @@ class Servo
 	uint16_t lower_limit_us, center_us, upper_limit_us, position_us;
 	uint8_t gpio_pin_no;
 public:
-	Servo(dc1394camera_t camera, uint8_t gpio_pin_no,  uint16_t position_us=1500,
+	Servo(dc1394camera_t *camera, uint8_t gpio_pin_no,  uint16_t position_us=1500,
 			uint16_t lower_limit_us=1000, uint16_t center_us=1500, uint16_t upper_limit_us=2000);
 	uint16_t getPosition(); // in microseconds
 	bool setPosition(uint16_t position_us); // in microseconds
