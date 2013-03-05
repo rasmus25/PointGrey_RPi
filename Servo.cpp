@@ -19,7 +19,7 @@
 #define GPIO_XTRA_PIN_3 0x1144
 
 
-Servo::Servo(dc1394camera_t _camera, uint8_t _gpio_pin_no,  uint16_t _position_us, uint16_t _lower_limit_us,
+Servo::Servo(dc1394camera_t *_camera, uint8_t _gpio_pin_no,  uint16_t _position_us, uint16_t _lower_limit_us,
 		uint16_t _center_us, uint16_t _upper_limit_us)
 {
 	camera = _camera;
@@ -29,7 +29,7 @@ Servo::Servo(dc1394camera_t _camera, uint8_t _gpio_pin_no,  uint16_t _position_u
 	center_us = _center_us;
 	upper_limit_us = _upper_limit_us;
 
-	if(camera == 0)
+	if(camera == NULL)
 		throw "No camera attached to servo";
 	if(gpio_pin_no > 3)
 			throw "Servo pin number out of range";
@@ -38,7 +38,7 @@ Servo::Servo(dc1394camera_t _camera, uint8_t _gpio_pin_no,  uint16_t _position_u
 
 	uint16_t address = GPIO_CTRL_PIN_0 + gpio_pin_no*10;
 	uint32_t data = 0x80000001;
-	dc1394error_t err = dc1394_set_register(camera, address, data);
+	dc1394error_t err = dc1394_set_register(*camera, address, data);
 	if(err)
 		throw "Cannot set camera registers";
 
@@ -48,7 +48,7 @@ Servo::Servo(dc1394camera_t _camera, uint8_t _gpio_pin_no,  uint16_t _position_u
 	// enable pwm
 	address = GPIO_CTRL_PIN_0 + gpio_pin_no*10;
 	data = 0x8004ff01;
-	dc1394error_t err = dc1394_set_register(camera, address, data);
+	dc1394error_t err = dc1394_set_register(*camera, address, data);
 	if(err)
 		throw "Cannot enable PWM";
 }
@@ -65,7 +65,7 @@ bool Servo::setPosition(uint16_t _position_us) // in microseconds
 	uint32_t data = (uint32_t)position_us*1024/1000; // 1.024 MHz clock
 	const uint32_t period = 20000*1024/1000; // hard-coded 20 ms period
 	data = data<<16 | (period - data);
-	dc1394error_t err = dc1394_set_register(camera, address, data);
+	dc1394error_t err = dc1394_set_register(*camera, address, data);
 	if(err)
 		return false;
 

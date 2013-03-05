@@ -13,7 +13,7 @@
 
 class Servo
 {
-	dc1394camera_t camera;
+	dc1394camera_t *camera;
 	uint16_t lower_limit_us, center_us, upper_limit_us, position_us;
 	uint8_t gpio_pin_no;
 public:
