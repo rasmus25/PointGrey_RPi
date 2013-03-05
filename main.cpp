@@ -208,15 +208,15 @@ int main (int argc, char **argv){ //input file name to save to default = file_Ca
                     run = false;
                 if(c==PLUS_KEY)
                 {
-                	servo_pos++;
+                	servo_pos+=10;
                 	if(!cameras.Tilt(0, servo_pos))
-                		servo_pos--;
+                		servo_pos-=10;
                 }
                 if(c==MINUS_KEY)
                 {
-                	servo_pos--;
+                	servo_pos-=10;
                 	if(!cameras.Tilt(0, servo_pos))
-                		servo_pos++;
+                		servo_pos+=10;
                 }
             }
 
